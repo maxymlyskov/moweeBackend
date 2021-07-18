@@ -10,7 +10,7 @@ const movieSchema =  new mongoose.Schema({
         maxLength: 50
     },
     Poster:{
-        type: String,
+        type: Array,
         required: true
     },
     imdbRating: {

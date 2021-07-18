@@ -1,4 +1,5 @@
 {
     "jwtPrivateKey": "jwtPrivateKey",
-    "db":"mongodb://localhost/mowee"
+    "db":"mongodb://localhost/mowee",
+    "assetsBaseUrl": "http://192.168.0.106:4000/assets/"
 }

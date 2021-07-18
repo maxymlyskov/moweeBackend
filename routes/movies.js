@@ -2,27 +2,31 @@ const express = require('express')
 const route = express.Router()
 const {Movie, validateObject} = require('../models/movie')
 const multer = require('multer');
+const config = require('config')
+const moviesMapper = require('../mappers/movies')
 const auth = require('../middleware/auth')
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, './uploads')
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.originalname)
-//     }
-// })
-// const upload = multer({ storage: storage })
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+})
+const upload = multer({ storage: storage })
 
-const upload = multer({
-    dest: "uploads/",
-    limits: { fieldSize: 25 * 1024 * 1024 },
-  });
+// const upload = multer({
+//     dest: "uploads/",
+//     limits: { fieldSize: 25 * 1024 * 1024 },
+//   });
 
 
 
 route.get('/', async (req,res)=>{
     const movies = await Movie.find().sort('Title');
+
+    // const resources = movies.map(moviesMapper)
     res.send(movies)
 })
 
@@ -33,12 +37,14 @@ route.get('/:id',async (req,res)=>{
     res.send(movie)
 })
  
-route.post('/', auth, upload.single('Poster'), async (req, res)=>{
+route.post('/', upload.single('Poster'), async (req, res)=>{
     const {error} = validateObject(req.body)
     if(error) return res.status(400).send(error.details[0].message)  
     
     // const genre = await Genre.findById(req.body.genreId);
     // if(!genre) return  res.status(400).send('Invalid genre.')
+
+    const baseUrl = config.get("assetsBaseUrl");
 
     const movie = new Movie({
         Title: req.body.Title,
@@ -55,7 +61,7 @@ route.post('/', auth, upload.single('Poster'), async (req, res)=>{
         Actors: req.body.Actors,
         Production: req.body.Production,
         Awards: req.body.Awards,
-        Poster: req.file.path
+        Poster: req.file.path.replace('uploads\\','')
     })
     await movie.save()
     res.send(movie)
