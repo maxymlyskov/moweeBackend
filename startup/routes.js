@@ -6,8 +6,9 @@ const auth = require('../routes/auth')
 
 module.exports = function(app){
     app.use(express.json())
-    app.use(express.static(__dirname + '/public'));
-    app.use('/uploads', express.static('uploads'));
+    app.use(express.urlencoded({ extended: false }));
+    // app.use(express.static(__dirname + '/uploads'));
+    // app.use('/uploads', express.static('uploads'));
  
 
     app.use('/api/movies', movies)

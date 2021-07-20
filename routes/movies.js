@@ -3,8 +3,8 @@ const route = express.Router()
 const {Movie, validateObject} = require('../models/movie')
 const multer = require('multer');
 const config = require('config')
-const moviesMapper = require('../mappers/movies')
-const auth = require('../middleware/auth')
+// const moviesMapper = require('../mappers/movies')
+// const auth = require('../middleware/auth')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-// const upload = multer({
+// const upload = multer({  
 //     dest: "uploads/",
 //     limits: { fieldSize: 25 * 1024 * 1024 },
 //   });
@@ -40,35 +40,47 @@ route.get('/:id',async (req,res)=>{
 route.post('/', upload.single('Poster'), async (req, res)=>{
     const {error} = validateObject(req.body)
     if(error) return res.status(400).send(error.details[0].message)  
+
     
-    // const genre = await Genre.findById(req.body.genreId);
-    // if(!genre) return  res.status(400).send('Invalid genre.')
+        const movie = new Movie({
+            Title: req.body.Title,
+            Year: req.body.Year,
+            imdbRating: req.body.imdbRating,
+            Plot: req.body.Plot,
+            Released: req.body.Released,
+            Runtime: req.body.Runtime,
+            Genre: req.body.Genre,
+            Language: req.body.Language,
+            Country: req.body.Country,
+            Director: req.body.Director,
+            Writer: req.body.Writer,
+            Actors: req.body.Actors,
+            Production: req.body.Production,
+            Awards: req.body.Awards,
+            Poster: req.body.Poster
+        })
+        try{
+        await movie.save()
+        return res.send(movie)
 
-    const baseUrl = config.get("assetsBaseUrl");
+        
+    } catch (error) {
+        res.send(error)
+    }
+    
 
-    const movie = new Movie({
-        Title: req.body.Title,
-        Year: req.body.Year,
-        imdbRating: req.body.imdbRating,
-        Plot: req.body.Plot,
-        Released: req.body.Released,
-        Runtime: req.body.Runtime,
-        Genre: req.body.Genre,
-        Language: req.body.Language,
-        Country: req.body.Country,
-        Director: req.body.Director,
-        Writer: req.body.Writer,
-        Actors: req.body.Actors,
-        Production: req.body.Production,
-        Awards: req.body.Awards,
-        Poster: req.file.path.replace('uploads\\','')
-    })
-    await movie.save()
-    res.send(movie)
 })
 
 route.delete('/:id', async (req,res)=>{
     const movie = await Movie.findByIdAndRemove(req.params.id)
+
+    if(!movie) return res.status(404).send('This page is not found!')
+
+    res.send(movie)
+})
+
+route.delete('/', async (req,res)=>{
+    const movie = await Movie.deleteMany({})
 
     if(!movie) return res.status(404).send('This page is not found!')
 
