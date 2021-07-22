@@ -37,7 +37,7 @@ const movieSchema =  new mongoose.Schema({
     Genre: {
         type: String,
         required: true,
-        maxLength: 200
+        maxLength: 300
     },
     Language: {
         type: String,
@@ -47,37 +47,42 @@ const movieSchema =  new mongoose.Schema({
     Country: {
         type: String,
         required: true,
-        maxLength: 100
+        maxLength: 200
     },
     Director: {
         type: String,
         required: true,
-        maxLength: 100
+        maxLength: 1000
     },
     Year: {
-        type: String,
+        type: String,   
         required: true,
         maxLength: 50
     },
     Writer: {
         type: String,
         required: true,
-        maxLength: 200
+        maxLength: 1000
     },
     Actors: {
         type: String,
         required: true,
-        maxLength: 500
+        maxLength: 1000
     },
     Production: {
         type: String,
         required: true,
-        maxLength: 400
+        maxLength: 1000
     },
     Awards: {
         type: String,
         required: true,
-        maxLength: 200
+        maxLength: 1000
+    },
+    Rating:{
+        type: Number,
+        max: 5,
+        default: 0
     }})
 
 const Movie = mongoose.model("Movie",movieSchema)
@@ -99,7 +104,8 @@ function validateObject(result){
         Production: Joi.string().required(),
         Awards: Joi.string().required(),
         Year: Joi.string().required(),
-        Poster: Joi.string().required()
+        Poster: Joi.string().required(),
+        Rating: Joi.number()
     } )
     return schema.validate(result)
     
