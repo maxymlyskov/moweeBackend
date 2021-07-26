@@ -16,7 +16,7 @@ const movieSchema =  new mongoose.Schema({
     },
     Liked: {
         type: Boolean,
-        default: false
+        default: true
     },
     Poster:{
         type: String,
@@ -94,7 +94,7 @@ const movieSchema =  new mongoose.Schema({
         default: 0
     }})
 
-const Movie = mongoose.model("Movie",movieSchema)
+const MovieLiked = mongoose.model("MovieLiked",movieSchema)
 
 
 function validateObject(result){
@@ -123,5 +123,5 @@ function validateObject(result){
 }
 
 exports.movieSchema = movieSchema;
-exports.Movie = Movie;
+exports.MovieLiked = MovieLiked;
 exports.validateObject = validateObject;

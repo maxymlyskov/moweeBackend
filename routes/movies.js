@@ -1,6 +1,7 @@
 const express = require('express')
 const route = express.Router()
 const {Movie, validateObject} = require('../models/movie')
+const {MovieLiked} = require('../models/movieLiked')
 const multer = require('multer');
 const config = require('config')
 // const auth = require('../middleware/auth')
@@ -21,6 +22,11 @@ const upload = multer({ storage: storage })
 
 route.get('/', async (req,res)=>{
     const movies = await Movie.find().sort([['Rating', -1]]);
+    res.send(movies)
+})
+
+route.get('/liked', async (req,res)=>{
+    const movies = await MovieLiked.find().sort([['Rating', -1]]);
     res.send(movies)
 })
 
@@ -52,7 +58,45 @@ route.post('/', upload.single('Poster'), async (req, res)=>{
             Production: req.body.Production,
             Awards: req.body.Awards,
             Poster: req.body.Poster,
-            Rating: req.body.Rating
+            Rating: req.body.Rating,
+            Liked: req.body.Liked,
+            imdbID: req.body.imdbID
+        })
+        try{
+        await movie.save()
+        return res.send(movie)
+
+        
+    } catch (error) {
+        res.send(error)
+    }
+    
+
+})
+route.post('/liked', upload.single('Poster'), async (req, res)=>{
+    const {error} = validateObject(req.body)
+    if(error) return res.status(400).send(error.details[0].message)  
+
+    
+        const movie = new MovieLiked({
+            Title: req.body.Title,
+            Year: req.body.Year,
+            imdbRating: req.body.imdbRating,
+            Plot: req.body.Plot,
+            Released: req.body.Released,
+            Runtime: req.body.Runtime,
+            Genre: req.body.Genre,
+            Language: req.body.Language,
+            Country: req.body.Country,
+            Director: req.body.Director,
+            Writer: req.body.Writer,
+            Actors: req.body.Actors,
+            Production: req.body.Production,
+            Awards: req.body.Awards,
+            Poster: req.body.Poster,
+            Rating: req.body.Rating,
+            imdbID: req.body.imdbID,
+            Liked: req.body.Liked
         })
         try{
         await movie.save()
@@ -66,11 +110,11 @@ route.post('/', upload.single('Poster'), async (req, res)=>{
 
 })
 
-route.put('/:id', async (req, res)=>{
+route.put('/liked/:id', async (req, res)=>{
     const {error} = validateObject(req.body)
     if(error) return res.status(400).send(error.details[0].message) 
 
-    const movie = await Movie.findByIdAndUpdate(req.params.id, 
+    const movie = await MovieLiked.findByIdAndUpdate(req.params.id, 
         {Title: req.body.Title,
         Year: req.body.Year,
         imdbRating: req.body.imdbRating,
@@ -86,7 +130,10 @@ route.put('/:id', async (req, res)=>{
         Production: req.body.Production,
         Awards: req.body.Awards,
         Poster: req.body.Poster,
-        Rating: req.body.Rating},{new:true})
+        Rating: req.body.Rating,
+        imdbID: req.body.imdbID,
+        Liked: true
+            },{new:true})
 
     if(!movie) return res.status(404).send('This page is not found!')
         
@@ -101,11 +148,20 @@ route.delete('/:id', async (req,res)=>{
     res.send(movie)
 })
 
-route.delete('/', async (req,res)=>{
-    const movie = await Movie.deleteMany({})
+route.delete('/liked', async (req,res)=>{
+    const movie = await MovieLiked.deleteMany({})
 
     if(!movie) return res.status(404).send('This page is not found!')
 
     res.send(movie)
 })
+
+route.delete('/liked/:id', async (req,res)=>{
+    const movie = await MovieLiked.findByIdAndRemove(req.params.id)
+
+    if(!movie) return res.status(404).send('This page is not found!')
+
+    res.send(movie)
+})
+
 module.exports = route
