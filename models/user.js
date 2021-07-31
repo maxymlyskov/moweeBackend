@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const passwordComplexity = require("joi-password-complexity");
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const {movieSchema} = require('../models/movie')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -24,15 +25,10 @@ const userSchema = new mongoose.Schema({
         minLength: 5,
         maxLength: 1024
     },
-    isAdmin: {
-        type: Boolean,
-        required:true,
-        default: false
-    }   
 })
 
 userSchema.methods.generateAuthToken = function(){
-    const token = jwt.sign({_id: this._id, isAdmin: this.isAdmin}, config.get('jwtPrivateKey'));
+    const token = jwt.sign({_id: this._id, name: this.name, email: this.email}, config.get('jwtPrivateKey'));
     return token
 }
 
@@ -55,7 +51,6 @@ function validateObject(result){
         name: Joi.string().min(3).max(50).required(),
         email: Joi.string().min(5).max(255).email().required(),
         password: passwordComplexity(complexityOptions).required(),
-        isAdmin: Joi.boolean().required()
     } )
     return schema.validate(result)
     

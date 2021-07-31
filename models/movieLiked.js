@@ -92,12 +92,17 @@ const movieSchema =  new mongoose.Schema({
         type: Number,
         max: 5,
         default: 0
-    }})
+    },
+    owner:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }
+})
 
 const MovieLiked = mongoose.model("MovieLiked",movieSchema)
 
 
-function validateObject(result){
+function validateObjectLiked(result){
     const schema =Joi.object({
         Title: Joi.string().min(3).required(),
         imdbRating: Joi.string().required(),
@@ -124,4 +129,4 @@ function validateObject(result){
 
 exports.movieSchema = movieSchema;
 exports.MovieLiked = MovieLiked;
-exports.validateObject = validateObject;
+exports.validateObjectLiked = validateObjectLiked;
