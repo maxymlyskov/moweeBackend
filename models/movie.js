@@ -12,7 +12,8 @@ const movieSchema =  new mongoose.Schema({
     imdbID: {
         type: String,
         required: true,
-        maxLength: 50
+        maxLength: 50,
+        unique: true
     },
     Year: {
         type: String,
