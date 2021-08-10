@@ -630,3 +630,39 @@
 {"message":"Connected to mongodb://localhost/mowee...","level":"info"}
 {"message":"Listening on port 4000...","level":"info"}
 {"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"stringValue":"\"liked\"","kind":"ObjectId","value":"liked","path":"_id","reason":{},"valueType":"string","level":"error","message":"Cast to ObjectId failed for value \"liked\" (type string) at path \"_id\" for model \"Movie\" Cast to ObjectId failed for value \"liked\" (type string) at path \"_id\" for model \"Movie\"","stack":"CastError: Cast to ObjectId failed for value \"liked\" (type string) at path \"_id\" for model \"Movie\"\n    at model.Query.exec (E:\\nodeProject\\moweeBackend\\node_modules\\mongoose\\lib\\query.js:4478:21)\n    at model.Query.Query.then (E:\\nodeProject\\moweeBackend\\node_modules\\mongoose\\lib\\query.js:4572:15)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"stringValue":"\"liked\"","kind":"ObjectId","value":"liked","path":"_id","reason":{},"valueType":"string","level":"error","message":"Cast to ObjectId failed for value \"liked\" (type string) at path \"_id\" for model \"Movie\" Cast to ObjectId failed for value \"liked\" (type string) at path \"_id\" for model \"Movie\"","stack":"CastError: Cast to ObjectId failed for value \"liked\" (type string) at path \"_id\" for model \"Movie\"\n    at model.Query.exec (E:\\nodeProject\\moweeBackend\\node_modules\\mongoose\\lib\\query.js:4478:21)\n    at model.Query.Query.then (E:\\nodeProject\\moweeBackend\\node_modules\\mongoose\\lib\\query.js:4572:15)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}
+{"message":"Listening on port 4000...","level":"info"}
+{"message":"Connected to mongodb://localhost/mowee...","level":"info"}

@@ -13,7 +13,6 @@ const movieSchema =  new mongoose.Schema({
         type: String,
         required: true,
         maxLength: 50,
-        unique: true
     },
     Liked: {
         type: Boolean,

@@ -3,9 +3,7 @@ const route = express.Router()
 const {Movie, validateObject} = require('../models/movie')
 const {MovieLiked,validateObjectLiked} = require('../models/movieLiked')
 const multer = require('multer');
-const config = require('config')
 const auth = require('../middleware/auth')
-const { requiresAuth } = require('express-openid-connect');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -44,6 +42,7 @@ route.post('/', upload.single('Poster'), auth, async (req, res)=>{
     
         const movie = new Movie({
             Title: req.body.Title,
+            Genre: req.body.Genre,
             Year: req.body.Year,
             Poster: req.body.Poster,
             imdbID: req.body.imdbID,
@@ -137,6 +136,8 @@ route.delete('/:id', auth, async (req,res)=>{
 })
 
 route.delete('/liked', async (req,res)=>{
+    const {error} = validateObjectLiked(req.body)
+    if(error) return res.status(400).send(error.details[0].message) 
     const movie = await MovieLiked.deleteMany({})
 
     if(!movie) return res.status(404).send('This page is not found!')

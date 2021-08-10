@@ -12,8 +12,12 @@ const movieSchema =  new mongoose.Schema({
     imdbID: {
         type: String,
         required: true,
-        maxLength: 50,
-        unique: true
+        maxLength: 50
+    },
+    Genre: {
+        type: String,
+        required: true,
+        maxLength: 50
     },
     Year: {
         type: String,
@@ -37,6 +41,7 @@ const Movie = mongoose.model("Movie",movieSchema)
 function validateObject(result){
     const schema =Joi.object({
         Title: Joi.string().min(3).required(),        
+        Genre: Joi.string().required(),
         Year: Joi.string().required(),
         Poster: Joi.string().required(),
         imdbID: Joi.string().required()
